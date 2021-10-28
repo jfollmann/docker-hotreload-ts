@@ -1,19 +1,13 @@
 import express from "express"
 import { loggerMiddleware } from './middlewares/loggerMiddleware';
+import routes from './router';
 
 const app = express();
 
 app.use(loggerMiddleware);
-
-app.get('/', (_req, res) => {
-  res.json({ appRunning: true });
-});
-
-app.get('/user', (_req, res) => {
-  res.json([{ userName: 'jfollmann', name: 'Follmann' }]);
-})
+app.use(routes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, function () {
   console.log(`✅ Server is running on port ${PORT}`)
 });
